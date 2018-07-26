@@ -1,0 +1,183 @@
+
+<!-- LOGIN AND REGISTRATION -->
+
+	<div id="login_system" class="nonelogsystem">
+		<p onclick="closeModalLogin()" 
+		class="closeModalLogin">
+			<i class="fas fa-times"></i>
+		</p>
+		<ul id="errorlogin"></ul>
+		<form method="POST" id="formLogin" 
+		action="/login/">
+			<div id="loginTextI">
+				<i class="fas fa-at"></i>
+			<input placeholder="Логин:" id="textLogin" type="text">
+			</div>
+			<div id="loginTextI">
+				<i class="fas fa-lock"></i>
+			<input placeholder="Пароль:" 
+			id="textPassword" type="password">
+			</div>
+			
+			<button id="btnLogin">
+				Войти
+			</button>
+			<p class="registeropenlog">Регистрация</p>
+		</form>
+		<div>
+		</div>
+	</div>
+
+
+	<div id="register_system" class="nonelogsystem">
+
+		<p onclick="closeReg()" id="closeRegister">
+			<i class="fas fa-times"></i>
+		</p>
+
+		<ul id="errorlogin" class="errorregister"></ul>
+		<ul class="succesregister">
+			
+		</ul>
+		<form method="POST" id="formRegister" 
+		action="/register/">
+			<div id="loginTextI">
+				<i class="fas fa-at"></i>
+			<input placeholder="Логин:" 
+			id="textLogin" class="textlogReg" 
+			type="text">
+			</div>
+
+
+			<div id="loginTextI">
+				<i class="fas fa-user"></i>
+			<input placeholder="Имя:" 
+			id="textName" 
+			type="text">
+			</div>
+			<div id="loginTextI">
+				<i class="fas fa-user"></i>
+			<input placeholder="Фамилия:" 
+			id="textLastName" 
+			type="text">
+			</div>
+
+
+
+			<div id="loginTextI">
+				<i class="fas fa-envelope-open"></i>
+			<input placeholder="Mail:" 
+			id="textMail" class="textMailReg" type="email">
+			</div>
+
+			<div id="loginTextI">
+				<i class="fas fa-lock"></i>
+			<input placeholder="Пароль:" 
+			id="textPassword" class="textpassReg" type="password">
+			</div>
+			<div id="loginTextI">
+				<i class="fas fa-lock"></i>
+			<input placeholder="Повторите Пароль:" 
+			id="textPassword2" class="textpassRegTwo" 
+			type="password">
+			</div>
+			
+			<button type="submit" id="btnLogin">
+				Регистрация
+			</button>
+			<p onclick="fadeRegTOvXOD()">
+			Вход
+		</p>
+		</form>
+		<div>
+		</div>
+	</div>
+	
+
+<!-- END LOGIN AND REGISTRATION -->
+
+
+
+
+<header class="headermy">
+	<p class="logo"><a href="/">AREN</a></p>
+	<form method="GET" 
+	action="/listsearch/"
+	class="formSearch">
+	{% csrf_token %}
+		<input autocomplete="off" name="q" onclick="searchOpen()" 
+		class="textSearch" type="text">
+		<button class="btnSearch" type="submit">
+			<i class="fas fa-search"></i>
+		</button>
+<div class="dropSearch closeSearchDiv">
+	<ul class="dropSearchUl">
+
+		
+
+	</ul>
+</div>
+	</form>
+	
+	
+
+<form action="" class="fsearchMobile hideMobileSearch">
+		<input onclick="searchOpen()" class="textSearch" type="text">
+		<button class="btnSearch" type="submit">
+			<i class="fas fa-search"></i>
+		</button>
+		<p onclick="closeSM()" id="closeMobSearch">
+	<i id="closeMenuI" class="fas fa-angle-up"></i>
+		</p>
+
+
+		<div class="dropSearch closeSearchDiv">
+	<ul class="dropSearchUl">
+		<li><a href="#">Софт</a></li>
+		<li><a href="#">Скрипты</a></li>
+		<li><a href="#">Блог</a></li>
+	</ul>
+</div>
+
+
+	</form>
+
+	
+
+
+<p onclick="btnMbS()" class="btnSearch btnSearchMobile"><i class="fas fa-search"></i></p>
+
+
+
+	<div class="righthomelog">
+		{% if user.is_authenticated %}
+		<p id="dropIProfile" >
+		<a href="">{{ user.first_name }}</a>
+		<i class="fas fa-caret-down"></i>
+		</p>
+		{% else %}
+		<p onclick="loginDialog()" 
+		class="login">Войти</p>
+		<p onclick="regDialog()" 
+		class="register">Регистрация</p>
+		{% endif %}
+		
+		<div class="dropdownProfile noneReply">
+
+			<ul class="dropdownProfileUl">
+				<li class="headerDropProfile">
+					<h6>
+			<a href="/accounts/kabinet/">Signed in as 
+				</h6>
+					<span>{{ user.get_full_name }}</span>
+					</a>
+				</li>
+				<li>Настройки</li> <hr>
+				<li class="logoutbutton"><a href="/logout/">Выход</a></li>
+			</ul>
+		</div>
+		
+
+	</div>
+	
+</header>

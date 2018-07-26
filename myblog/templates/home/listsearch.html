@@ -1,0 +1,28 @@
+{% extends 'home/home.html' %}
+{% block content %}
+
+<div class="testright">
+	
+	<div class="articlesall">
+		{% for videos in listsearch %}
+	<article class="myposts">
+		<a href="/video/{{videos.id}}/">
+		<img src="{{ videos.imgtitle.url }}" alt="">
+		<h3>{{ videos.title }}</h3>
+		<p class="vieBlog">{{ videos.user.get_full_name }}</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog">{{ videos.data }}</p>
+		</div>
+		</a>
+	</article>
+	
+	{% endfor %}	
+
+	</div>
+<div class="divBorder" 
+style="border-top: 1px solid #C8BFBF;"></div>
+
+
+{% endblock content %}

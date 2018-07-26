@@ -1,0 +1,92 @@
+{% extends 'home/home.html' %}
+{% block content %}
+
+<div class="postDetailAndPosts">
+
+	
+	<div class="postDetail">
+	<div class="postDetailChildren">
+
+	<form enctype="multipart/form-data" method="POST">
+			{% csrf_token %}
+			<p class="opisaniyeP">Имя</p>
+			<input style="width: auto; height: 100%;" type="text" class="valtitle" name="title" id="title"
+		value="{{ video.title }}"> <br> <br> <hr> <br>
+
+
+			<input type="file" 
+			name="image" 
+			id="image" value="{{ video.image.url }}">
+			<br> <br> <hr>
+			<input value="{{ video.video.url }}" 
+			type="file" name="video" id="video">
+			<br> <br> <hr>
+			
+		<div class="opisaniyeVideo">
+			<p class="opisaniyeP">Описание</p>
+			<input type="text" name="opisaniye" 
+			id="opisaniye"
+			value="{{ video.opisaniye }}">
+			<br>
+			
+		</div>
+		<br> <br>
+		<hr>
+		<button type="submit">Save</button>
+		</form>
+	</div>
+	</div>
+	
+<div class="rightPostDetailPosts">
+	
+
+
+
+
+
+<div style="margin-top: 0;" class="postDetail">
+	<h3>Демо</h3>
+	<div class="postDetailChildren">
+		<p class="titleDetail">
+			{{ video.title }}
+		</p>
+		<div class="imgDetail">
+			<video controls="" 
+			src="{{ video.video.url }}"></video>
+			<div class="underImgPVideo">
+				<p class="dataDetailImg">
+					<i class="far fa-calendar-alt"></i>
+				{{ video.data|date:'d-m-Y' }}</p>
+				<p class="commentsDetailImg">
+					<i class="fas fa-comments"></i>
+				10 Комментарии</p>
+				<p class="viewsDetailImg">
+					<i class="fas fa-eye"></i>
+				3049 просмотров</p>
+			</div>
+			
+		</div>
+
+		<div class="opisaniyeVideo">
+			<p class="opisaniyeP">Описание</p>
+			<p class="opisaniyepp">{{ video.opisaniye|linebreaks }}</p> 
+			<br>
+			
+		</div>
+		<br> <br>
+		<hr>
+		
+	</div>
+	</div>
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+{% endblock content %}

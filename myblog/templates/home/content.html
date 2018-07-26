@@ -1,0 +1,93 @@
+{% extends 'home/home.html' %}
+{% block content %}
+
+<div class="testright">
+	<h3 class="softclass"><i class="fas fa-video"></i>
+	 Видеоблог</h3> 
+	<div class="articlesall">
+		{% for videos in videoblog %}
+	<article class="myposts">
+		<a href="/video/{{videos.id}}/">
+		<img src="{{ videos.imgtitle.url }}" alt="">
+		<h3>{{ videos.title|truncatechars:50 }}</h3>
+		<p class="vieBlog">{{ videos.user.get_full_name }}</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog">{{ videos.data }}</p>
+		</div>
+		</a>
+	</article>
+	
+	{% endfor %}	
+
+	</div>
+<div class="divBorder" 
+style="border-top: 1px solid #C8BFBF;"></div>
+</div>
+<!-- testright #2 -->
+<!-- <div class="testright">
+	<h3 class="softclass"><i class="fas fa-code"></i>
+	 Кибербезопасность</h3> 
+	<div class="articlesall">
+	<article class="myposts">
+		<a href="postDetail.html">
+		<img src="img/post6.jpg" alt="">
+		<h3>Lorem ipsum dolor sit amet...</h3>
+		<p class="vieBlog">Aren Atabekyan</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog"> 4 дня назад</p>
+		</div>
+	</a>
+	</article>
+	<article class="myposts">
+		<img src="img/post7.jpg" alt="">
+		<h3>Lorem ipsum dolor sit amet...</h3>
+		<p class="vieBlog">Aren Atabekyan</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog"> 4 дня назад</p>
+		</div>
+	</article>
+	<article class="myposts">
+		<img src="img/post8.jpg" alt="">
+		<h3>Lorem ipsum dolor sit amet...</h3>
+		<p class="vieBlog">Aren Atabekyan</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog"> 4 дня назад</p>
+		</div>
+	</article>
+	<article class="myposts">
+		<img src="img/post9.jpg" alt="">
+		<h3>Lorem ipsum dolor sit amet...</h3>
+		<p class="vieBlog">Aren Atabekyan</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog"> 4 дня назад</p>
+		</div>
+	</article>
+	<article class="myposts">
+		<img src="img/post10.jpg" alt="">
+		<h3>Lorem ipsum dolor sit amet...</h3>
+		<p class="vieBlog">Aren Atabekyan</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog"> 4 дня назад</p>
+		</div>
+	</article>
+	
+	
+		
+	</div>
+<div class="divBorder" 
+style="border-top: 1px solid #C8BFBF;"></div>
+</div> -->
+
+{% endblock content %}

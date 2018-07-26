@@ -1,0 +1,185 @@
+{% extends 'home/home.html' %}
+{% block content %}
+
+<div class="postDetailAndPosts">
+
+	
+	<div class="postDetail">
+	<div class="postDetailChildren">
+		<form
+		method="POST">
+			{% csrf_token %}
+<input type="text" name="ip_adress" id="ip_adress">
+				</form>
+		<p class="titleDetail">
+			{{ video.title }}
+		</p>
+		<div class="imgDetail">
+			<video controls="" 
+			src="{{ video.video.url }}"></video>
+			<div class="underImgPVideo">
+				<p class="dataDetailImg">
+					<i class="far fa-calendar-alt"></i>
+				{{ video.data|date:'d-m-Y' }}</p>
+				<p class="commentsDetailImg">
+					<i class="fas fa-comments"></i>
+				10 Комментарии</p>
+				<p class="viewsDetailImg">
+					<i class="fas fa-eye"></i>
+					{% if video.views.count > 1 %}
+				{{ video.views.count }}
+				 просмотров
+				 {% else %}
+				 {{ video.views.count }}
+				 просмотр
+				 {% endif %}
+				</p>
+				<script>
+					function getUserIP(onNewIP) { //  onNewIp - your listener function for new IPs
+    //compatibility for firefox and chrome
+    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    var pc = new myPeerConnection({
+        iceServers: []
+    }),
+    noop = function() {},
+    localIPs = {},
+    ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
+    key;
+
+    function iterateIP(ip) {
+        if (!localIPs[ip]) onNewIP(ip);
+        localIPs[ip] = true;
+    }
+
+     //create a bogus data channel
+    pc.createDataChannel("");
+
+    // create offer and set local description
+    pc.createOffer().then(function(sdp) {
+        sdp.sdp.split('\n').forEach(function(line) {
+            if (line.indexOf('candidate') < 0) return;
+            line.match(ipRegex).forEach(iterateIP);
+        });
+        
+        pc.setLocalDescription(sdp, noop, noop);
+    }).catch(function(reason) {
+        // An error occurred, so handle the failure to connect
+    });
+
+    //listen for candidate events
+    pc.onicecandidate = function(ice) {
+        if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+        ice.candidate.candidate.match(ipRegex).forEach(iterateIP);
+    };
+}
+
+// Usage
+
+getUserIP(function(ip){
+    // $.ajax({
+    // 	url: '/video/{{ video.id }}/view/',
+    // 	type: 'POST',
+    // 	data: { ip_adress: ip },
+
+    // 	success : function(json){
+    // 		console.log(ip)
+    // 	}
+    // });
+    $('#ip_adress').val(ip);
+});
+				</script>
+			</div>
+			<div class="underVideo">
+			<div class="optionVideoPost">
+				<i class="fas fa-clock"></i>Посмотреть позже
+			</div>
+			<div class="likeClass">
+				<p><i class="fas fa-heart"></i> Нравиться</p>
+				<span>4209</span>
+			</div>
+			</div>
+		</div>
+
+		<div class="opisaniyeVideo">
+			<p class="opisaniyeP">Описание</p>
+			<p>{{ video.opisaniye|linebreaks }}</p> 
+			<br>
+			
+		</div>
+		<br> <br>
+		<hr>
+		<div class="comments">
+			<p class="CommentsP"> 102 Комменнтария</p>
+		
+		<form id="formComment">
+			<textarea focused placeholder="Оставьте комментарий" name="" 
+			id="commentText"></textarea>
+			<button class="CommentBtn">КОММЕНТИРОВАТЬ</button>
+		</form>
+		
+<div class="allComments">
+ <ul class="allCommentsUl">
+
+   	<li class="allCommentsUlLi">
+		<img src="img/1.png" alt="">
+		<p class="userCommentName">Aren Atabekyan</p>
+	<small class="dataComment">13 часов назад</small>	
+		<p class="commentP">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas dolorem quia explicabo unde sint laudantium, molestias consequuntur voluptas.</p>
+
+<div class="replyComment">
+	<p class="addReply">Ответить</p>
+	<div class="addReplyDiv noneReply">
+		<form id="addReplyForm">
+			<textarea placeholder="Ответить" name="" 
+			id="replyText"></textarea>
+			<p class="otmenaReply">ОТМЕНА</p>
+			<button class="replyBtn">ОТВЕТИТЬ</button>
+		</form>
+		
+	</div>
+	<p class="showReply">Показать ответы (2)</p>
+	<ul class="replyCommentUl noneReply">
+	<li class="allCommentsUlLi">
+		<img src="img/user.png" alt="">
+		<p class="userCommentName">Aren Atabekyan</p>
+	<small class="dataComment">13 часов назад</small>	
+		<p class="commentP">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas dolorem quia explicabo unde sint laudantium, molestias consequuntur voluptas distinctio architecto consectetur tempore, ipsa. Blanditiis unde ea repellendus enim necessitatibus odio?</p>	
+
+	</li>
+	<li class="allCommentsUlLi">
+		<img src="img/user.png" alt="">
+		<p class="userCommentName">Aren Atabekyan</p>
+	<small class="dataComment">13 часов назад</small>	
+		<p class="commentP">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas dolorem quia explicabo unde sint laudantium, molestias consequuntur voluptas distinctio architecto consectetur tempore, ipsa. Blanditiis unde ea repellendus enim necessitatibus odio?</p>	
+
+	</li>
+	</ul>
+</div>	
+
+	</li>
+		
+ </ul>
+</div> 
+	</div>
+	</div>
+	</div>
+	
+<div class="rightPostDetailPosts">
+	{% for videos in videoblog %}
+	<article class="myposts">
+		<a href="/video/{{videos.id}}/">
+		<img src="{{ videos.imgtitle.url }}" alt="">
+		<h3>{{ videos.title|truncatechars:50 }}</h3>
+		<p class="vieBlog">{{ videos.user.get_full_name }}</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog">{{ videos.data }}</p>
+		</div>
+		</a>
+	</article>
+	{% endfor %}
+</div>
+
+</div>
+{% endblock content %}

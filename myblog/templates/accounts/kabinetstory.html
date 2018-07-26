@@ -1,0 +1,68 @@
+{% extends 'home/home.html' %}
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+<div id="myProfile">
+	{% if user.userprofile.avatar %}
+	<div class="img">
+		<img src="{{ user.userprofile.avatar.url }}" alt="">
+		<p class="NameProfileP">
+		{{ user.get_full_name }}</p>
+		<p class="editProfileP">Изменить данные</p>
+	</div>
+	{% else %}
+	<div class="img">
+	<img src="{% static 'img/default-user.png' %}" alt="">
+		<p class="NameProfileP">
+			{{ user.get_full_name }}
+		</p>
+		<p class="editProfileP">Изменить данные</p>
+	</div>
+	{% endif %}
+	<div class="rightProfile">
+		<div class="tab">
+			<div class="tabTabs">
+			<a href="/accounts/kabinet/">Мои видео</a></div>
+		<div class="tabTabs activeTab">
+			<a href="/accounts/kabinet/tab=story/"></a>История</div>
+		<div class="tabTabs ">Посмотреть позже</div>
+		<div class="tabTabs">Подписчики 
+			<span>118</span></div>
+		<div class="tabTabs">Подписки 
+			<span>25</span></div>
+		</div>
+
+		<div class="myPostsAnd">
+				
+			{% for videos in videoblog %}
+			{% if videos in user.userprofile.story.all %}
+	<article class="myposts">
+		<a href="/video/{{videos.id}}/">
+		<img src="{{ videos.imgtitle.url }}" alt="">
+		<h3>{{ videos.title|truncatechars:50 }}</h3>
+		<p class="vieBlog">{{ videos.user.get_full_name }}</p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog">{{ videos.data }}</p>
+		</div>
+		</a>
+	</article>
+	{% endif %}
+	{% endfor %}
+	
+	
+	
+
+		</div>
+
+
+	</div>
+</div>
+{% else %}
+<p>Запрешено</p>
+{% endif %}
+{% endblock content %}
+
+
+	

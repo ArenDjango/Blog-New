@@ -1,0 +1,94 @@
+{% extends 'home/home.html' %}
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+<div id="myProfile">
+	{% if user.userprofile.avatar %}
+	<div class="img">
+		<img src="{{ user.userprofile.avatar.url }}" alt="">
+		<p class="NameProfileP">
+		{{ user.get_full_name }}</p>
+		<p class="editProfileP">Изменить данные</p>
+	</div>
+	{% else %}
+	<div class="img">
+	<img src="{% static 'img/default-user.png' %}" alt="">
+		<p class="NameProfileP">
+			{{ user.get_full_name }}
+		</p>
+		<form class="addphotoform" method="post" 
+		enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="file" name="myfile">
+			<button type="submit">Upload</button>
+		</form>
+		<p class="editProfileP">Добавить фото</p>
+	</div>
+	{% endif %}
+	<div class="rightProfile">
+		<div class="tab">
+			<div class="tabTabs activeTab">
+		<a href="/accounts/kabinet/">Мои видео</a></div>
+		<div class="tabTabs">
+	<a href="/accounts/kabinet/tab=story/">История</a></div>
+		<div class="tabTabs ">Посмотреть позже</div>
+		<div class="tabTabs">Подписчики 
+			<span>118</span></div>
+		<div class="tabTabs">Подписки 
+			<span>25</span></div>
+		</div>
+		<p id="addvideop">Добавить видео</p>
+	<form action="addvideo/" method="post" enctype="multipart/form-data" 
+	style="display: none;" id="addvideoform">
+	{% csrf_token %}
+	<p class="erroraddvideo"></p> 
+		<input placeholder="Имя" autocomplete="off" 
+		id="addtitlevideo" name="title" type="text">
+		<p class="poskimgvideo">Изображение</p>
+		<input placeholder="img" id="addimagevideo" 
+		name="image" type="file">
+		<p class="poskimgvideo">Видео</p>
+		<input id="addvideovideo" 
+		name="video" type="file">
+		<textarea placeholder="Описание" wrap="soft | hard" 
+		autocomplete="off" id="addopisaniyevideo" 
+		name="opisaniye"></textarea>
+		<button id="addvideobutton" type="submit">Добавить</button>
+	</form>
+		<div class="myPostsAnd">
+				
+			{% for videos in videoblog %}
+			{% if videos.user == request.user %}
+	<article class="myposts">
+		<a href="/video/{{videos.id}}/">
+		<img src="{{ videos.imgtitle.url }}" alt="">
+		<h3>{{ videos.title|truncatechars:50 }}</h3>
+		<p class="vieBlog">
+		{{ videos.user.get_full_name }}</p>
+		<p><a href="/video/{{videos.id}}/edit">
+		Change</a></p>
+		<div class="dataAndViewBlog">
+			<p class="viewBlog">
+			<i class="far fa-eye"></i> 102 </p>
+		<p class="datablog">{{ videos.data }}</p>
+		</div>
+		</a>
+	</article>
+	{% endif %}
+	{% endfor %}
+	
+	
+	
+
+		</div>
+
+
+	</div>
+</div>
+{% else %}
+<p>Запрешено</p>
+{% endif %}
+{% endblock content %}
+
+
+	

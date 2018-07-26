@@ -1,0 +1,15 @@
+{% if listsearch.count > 0 %}
+{% for n in listsearch %}
+<li class="dropliSearch">
+<a href="/listsearch/?q={{ n.title }}">
+	{{ n.title|truncatechars:35 }}
+</a></li>
+{% endfor %}
+
+{% else %}
+
+<li class="dropliSearch">
+Нечего не найдено
+</li>
+
+{% endif %}
